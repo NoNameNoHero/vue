@@ -1,44 +1,68 @@
 <template>
-  <div>
-    <full-page ref="fullpage" :options="options" id="fullpage">
-      <div class="section">
-        First section ...
-      </div>
-      <div class="section">
-        Second section ...
-      </div>
-      <div class="section">
-        Second section ...
-      </div>
-    </full-page>
+  <div id="app">
+    <div id="nav">
+      <!-- <router-link to="/">Home</router-link> | -->
+      <router-link to="/about">Добавить задачу</router-link> |
+      <router-link to="/test">Таблица задач</router-link>
+    </div>
+    <router-view/>
   </div>
 </template>
 
 <script>
-import 'animate.css'
-import 'fullpage-vue/src/fullpage.css'
-
 export default {
-  el: '#app',
-  name: 'app',
-  data() {
+  data: function () {
     return {
-      options: {
-        menu: '#menu',
-        anchors: ['page1', 'page2', 'page3'],
-        sectionsColor: ['#41b883', '#ff5f45', '#0798ec']
-      },
+      
+    }
+  },
+  methods: {
+    test () {
+      this.$store.commit('changeText', this.text)
+    }
+  },
+  computed: {
+
+  },
+  mounted () {
+    if (localStorage.getItem('todoList')) {
+      try {
+        this.$store.state.todoList = JSON.parse(localStorage.getItem('todoList'))
+        this.$store.state.currentId = +localStorage.getItem('todoList - currentId')
+      } catch (e) {
+        localStorage.removeItem('todoList')
+      }
     }
   }
 }
 </script>
 
 <style>
-.page-container {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
+#nav {
+  padding: 30px;
+}
+
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+
+.mainform{
+  padding: 20px;
+}
+.mainform div{
+  vertical-align: top;
+  margin: 10px;
 }
 </style>

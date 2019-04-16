@@ -1,4 +1,4 @@
-# fullpage
+# routenvuex
 
 ## Project setup
 ```
